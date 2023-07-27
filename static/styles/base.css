@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-weight: 400;
+}
+body {
+  margin: 0;
+  background-color: #232323;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+header {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(197, 29, 29);
+}
+/* logo
+================ */
+.poke-logo {
+  width: auto;
+  height: auto;
+  margin: 0;
+  float: left;
+}
+.logo {
+  width: 15vw;
+  height: auto;
+  margin: 1em;
+}
+
+/* NAVBAR
+================== */
+nav {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+nav ul {
+  width: 50%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  float: left;
+  list-style: none;
+  /* justify-content: space-between; */
+}
+
+nav li {
+  margin: 2em;
+}
+nav a {
+  font-weight: 600;
+  text-decoration: none;
+  color: whitesmoke;
+}
+nav form {
+  margin: 0 2em;
+}
+
+/* search form
+==================== */
+.search-field {
+  outline: 0;
+  width: 15em;
+  height: 2.5em;
+  border-radius: 10px;
+  border: none;
+  background-color: #232323;
+  color: #fff;
+}
+.search-btn {
+  width: 5em;
+  height: 2.5em;
+  border-radius: 10px;
+  border: none;
+}
