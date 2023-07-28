@@ -8,9 +8,15 @@
     <title>{% block title %} {% endblock title %}</title>
   </head>
   <body>
-    <header class='clearfix'>
-      <div class="menu-btn button">
-
+    <header class="clearfix">
+      <div class="menu-btn">
+        <button class="hamburger-btn btn" 
+        aria-controls="primary-navigation"
+        aria-expanded="false">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </button>
       </div>
       <div class="poke-logo">
         <img
@@ -19,19 +25,21 @@
           class="logo"
         />
       </div>
-      <nav>
+      <nav id="primary-navigation" data-visible="false">
         <ul>
-        <li><a class="button" href="#">HOME</a></li>
-        <li><a class="button" href="#">MORE</a></li>
-        <li><a class="button" href="#">ABOUT</a></li>
+          <li><a class="btn" href="#">HOME</a></li>
+          <li><a class="btn" href="#">MORE</a></li>
+          <li><a class="btn" href="#">ABOUT</a></li>
         </ul>
 
         <form action="">
-        <input type="text" class="search-field" placeholder=" Search">
-        <button class="search-btn button" type="submit">Search</button>
+          <input type="text" class="search-field" placeholder=" Search" />
+          <button class="search-btn btn" type="submit">Search</button>
         </form>
       </nav>
     </header>
     {% block body %} {% endblock body %}
+
+    <script src="{% static 'script/base.js' %}"></script>
   </body>
 </html>
