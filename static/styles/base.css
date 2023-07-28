@@ -1,3 +1,7 @@
+:root{
+  --primery-nav-color: rgb(197, 29, 29);
+  --primery-bg-color: #232323;
+}
 * {
   box-sizing: border-box;
   font-family: sans-serif;
@@ -5,34 +9,45 @@
 }
 body {
   margin: 0;
-  background-color: #232323;
+  background-color: var(--primery-bg-color);
 }
 img {
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  margin: 0;
 }
 .clearfix::after {
   content: "";
   display: table;
   clear: both;
 }
+
+.button{
+  text-decoration: none;
+  border: none;
+  border-radius: 10px;
+}
+
+/* ============== HEADER =============== */
 header {
   display: flex;
-  justify-content: center;
-  background-color: rgb(197, 29, 29);
+  /* justify-content: center; */
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--primery-nav-color);
 }
 /* logo
 ================ */
 .poke-logo {
-  width: auto;
-  height: auto;
-  margin: 0;
+  margin: 0.5em;
   float: left;
 }
 .logo {
-  width: 15vw;
+  width: 7em;
   height: auto;
-  margin: 1em;
+  margin: 0;
 }
 
 /* NAVBAR
@@ -45,41 +60,70 @@ nav {
   justify-content: space-between;
 }
 nav ul {
-  width: 50%;
-  margin: 0;
+  /* width: 50%; */
+  margin: 0 1em;
   display: flex;
-  flex-direction: row;
   float: left;
   list-style: none;
-  /* justify-content: space-between; */
+  gap: 3em;
 }
 
 nav li {
-  margin: 2em;
+  margin: 2em 0;
 }
 nav a {
   font-weight: 600;
-  text-decoration: none;
   color: whitesmoke;
 }
 nav form {
-  margin: 0 2em;
+  margin: 0 1em;
+  display: flex;
+  gap: 0.5em;
 }
 
 /* search form
 ==================== */
 .search-field {
   outline: 0;
-  width: 15em;
+  width: 70%;
   height: 2.5em;
   border-radius: 10px;
   border: none;
-  background-color: #232323;
+  background-color: var(--primery-bg-color);
   color: #fff;
+  padding: 1em;
 }
 .search-btn {
   width: 5em;
   height: 2.5em;
-  border-radius: 10px;
-  border: none;
+  background-color: #fff;
 }
+
+/* ==========Mobile Devices============= */
+@media (max-width: 600px){
+  nav{
+    width: 70%;
+    padding: 2em;
+    flex-direction: column-reverse;
+    position: fixed;
+    inset: 0 0 0 30%;
+    background-color: #676767;
+    ;
+    justify-content: flex-end;
+  }
+  nav ul{
+    width: 100%;
+    gap: 1em;
+    flex-direction: column;
+    align-items: end;
+    padding: 0%;
+  }
+  nav li{
+    width: 100%;
+    padding: 0 0 0 20%;
+  }
+}
+/* ==========Mobile Devices============= */
+
+
+/* ============== HEADER =============== */
