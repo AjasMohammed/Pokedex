@@ -15,7 +15,7 @@ def get_info(poke_id):
     info["id"] = pokemon.id
     info["height"] = pokemon.height
     info["weight"] = pokemon.weight
-    info["types"] = [t.type.name for t in pokemon.types]
+    info["types"] = [t.type.name for t in pokemon.types][0]
     info["abilities"] = [a.ability.name for a in pokemon.abilities]
     info["stats"] = {s.stat.name: s.base_stat for s in pokemon.stats}
     info['gif'] = f"https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/{poke_id}.gif?raw=true"
@@ -27,7 +27,10 @@ def get_info(poke_id):
     species = pb.pokemon_species(pokemon.species.name)
     for entry in species.flavor_text_entries:
         if entry.language.name == 'en' and entry.flavor_text not in description:
-            description += entry.flavor_text
-    info["description"] = description
-
+            if len(description) <= 1:
+                description = entry.flavor_text
+            elif len(entry.flavor_text) < len(description):
+                description = entry.flavor_text
+    info["flavor"] = description
+    print(info)
     return info

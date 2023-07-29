@@ -1,12 +1,52 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %} {% load custom_filters %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'styles/card.css' %}" />
+{% endblock link %} {% block title %} Home {% endblock title %} {% block body %}
+<main>
+  <!--======================= POKEMON CARDS =======================-->
+  <div class="card">
+    <div class="inner-frame">
+      <div class="card-title">
+        <label id="name"><b>{{name}}</b></label>
+        <label id="hp"><b>{{stats.hp}} HP</b></label>
+      </div>
+      <div class="card-img">
+        <img src="" alt="{{types}}" id="type-img" />
+        <img src="{{gif}}" alt="{{name}}" class="pokemon-img" />
+      </div>
+      <div class="card-stats">
+        <div class="top-stats">
+          <label>Height: {{height}} </label><label for=""> Weight: {{weight}} lbs</label>
+        </div>
+        <div class="bottom-stats">
+          <div>
+            <label class="stat" for="">Speed:</label><label for="">{{stats.speed}}</label>
+          </div>
+          <div>
+            <label class="stat" for="">Attack: </label><label>{{stats.attack}}</label>
+          </div>
+          <div>
+            <label class="stat" for="">Defense:</label
+            ><label for=""> {{stats.defense}} </label>
+          </div>
+          <div>
+            <label class="stat" for="">Special Attack:</label
+            ><label for="">{{stats|get_val:"special-attack"}}</label>
+          </div>
+          <div>
+            <label class="stat" for="">Special Defense:</label>
+            <label for="">{{stats|get_val:"special-defense"}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="flavour">
+        <p>
+          {{flavor}}
+        </p>
+      </div>
+    </div>
+  </div>
+  <!--======================= POKEMON CARDS =======================-->
+</main>
 
-{% block title %}
-  Home
-{% endblock title %}
-
-{% block body %}
-  {% comment %} <h1>Name : {{ name }}</h1> {% endcomment %}
-  {% comment %} <img src='{{gif}}' alt='GIF'/> {% endcomment %}
-
-{% comment %} <a href='{{gif}}'>{{gif}}</a> {% endcomment %}
 {% endblock body %}

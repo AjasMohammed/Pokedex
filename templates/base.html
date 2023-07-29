@@ -5,14 +5,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'styles/base.css' %}" />
+    {% block link %} {% endblock link %}
     <title>{% block title %} {% endblock title %}</title>
   </head>
   <body>
     <header class="clearfix">
       <div class="menu-btn">
-        <button class="hamburger-btn btn" 
-        aria-controls="primary-navigation"
-        aria-expanded="false">
+        <button
+          class="hamburger-btn btn"
+          aria-controls="primary-navigation"
+          aria-expanded="false"
+        >
           <span class="line"></span>
           <span class="line"></span>
           <span class="line"></span>
