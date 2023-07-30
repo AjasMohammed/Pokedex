@@ -1,0 +1,6 @@
+main{
+    margin: 8rem 3rem 0 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
