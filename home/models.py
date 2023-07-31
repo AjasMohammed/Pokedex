@@ -27,7 +27,7 @@ class Pokemon(models.Model):
     description = models.TextField(max_length=100000, null=True)
     flavor = models.TextField(max_length=1000, null=True)
 
-    pokemon_img = models.ImageField(upload_to='pokemon')
+    pokemon_img = models.TextField(max_length=1000)
 
     class Meta:
         ordering = ['id']

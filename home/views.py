@@ -7,21 +7,31 @@ import pokebase as pb  # pip install pokebases
 
 # Create your views here.
 def home(request):
-    # info = get_info(25)
+
+
+    # for i in range(startIndex, endIndex):
+    #     item = Pokemon.objects.filter(id=i).exists()
+    #     if item:
+    #         # info = Pokemon.objects.get(id=i)
+    #         continue
+    #     else:
+    #         get_info(i)
+
+    pokemon = Pokemon.objects.prefetch_related('abilities', 'types')
+
+    paginator = Paginator(pokemon, 20)
+    pageNo = request.GET.get('page')
+    pageObj = paginator.get_page(pageNo)
+
+    # pokemon = pageObj.object_list
+    
+    # Checks if the last pokemon in the page is the last pokemon in the database
     last = Pokemon.objects.order_by('id').last()
-    print(last)
+    last_poke_id = pageObj[-1].id
+    print(last.id)
 
-    info_list = []
-    for i in range(1, 21):
-        item = Pokemon.objects.filter(id=i).exists()
-        if item:
-            info = Pokemon.objects.get(id=i)
-        else:
-            info = get_info(i)
-
-        info_list.append(info)
-
-    print(last)
+    # if last_poke_id == last.id:
+    #     call_get_info(last_poke_id)
     pokemon = Pokemon.objects.prefetch_related('abilities', 'types')
 
     paginator = Paginator(pokemon, 20)
@@ -30,8 +40,17 @@ def home(request):
 
     pokemon = pageObj.object_list
 
-    context = {'pokemon': pokemon}
+    context = {'pokemon': pokemon, 'page': pageObj, 'last': last_poke_id}
     return render(request, 'home/home.html', context)
+
+
+def call_get_info(id):
+    startIndex = id + 1
+    endIndex = startIndex + 20
+    for i in range(startIndex, 501):
+        get_info(i)
+
+
 
 def get_info(poke_id):
     info = {}
@@ -63,8 +82,8 @@ def get_info(poke_id):
 
     info["flavor"] = flavor
     info["description"] = description
-    print(info)
-    print()
+    # print(info)
+    # print()
 
     save_info(info)
     return info
