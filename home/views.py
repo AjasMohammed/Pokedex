@@ -1,14 +1,20 @@
 from django.shortcuts import render
 from .models import Pokemon, Ability, Type
 from django.core.paginator import Paginator
+from django.urls import reverse
 
 import pokebase as pb  # pip install pokebases
 
 
 # Create your views here.
 def home(request):
+    return render(request, 'home/home.html')
 
 
+################ Card View ####################
+
+def pokemon(request):
+    #################### Use Only to fil the Database ######################
     # for i in range(startIndex, endIndex):
     #     item = Pokemon.objects.filter(id=i).exists()
     #     if item:
@@ -16,24 +22,24 @@ def home(request):
     #         continue
     #     else:
     #         get_info(i)
+###############################################################################
 
     pokemon = Pokemon.objects.prefetch_related('abilities', 'types')
-
     paginator = Paginator(pokemon, 20)
     pageNo = request.GET.get('page')
     pageObj = paginator.get_page(pageNo)
-
-    # pokemon = pageObj.object_list
     
     # Checks if the last pokemon in the page is the last pokemon in the database
     last = Pokemon.objects.order_by('id').last()
     last_poke_id = pageObj[-1].id
-    print(last.id)
+    # print(last.slug)
 
+########################################
     # if last_poke_id == last.id:
     #     call_get_info(last_poke_id)
-    pokemon = Pokemon.objects.prefetch_related('abilities', 'types')
+########################################
 
+    pokemon = Pokemon.objects.prefetch_related('abilities', 'types')
     paginator = Paginator(pokemon, 20)
     pageNo = request.GET.get('page')
     pageObj = paginator.get_page(pageNo)
@@ -41,15 +47,14 @@ def home(request):
     pokemon = pageObj.object_list
 
     context = {'pokemon': pokemon, 'page': pageObj, 'last': last_poke_id}
-    return render(request, 'home/home.html', context)
+    return render(request, 'pokemon/pokemon.html', context)
 
 
 def call_get_info(id):
     startIndex = id + 1
     endIndex = startIndex + 20
-    for i in range(startIndex, 501):
+    for i in range(startIndex, endIndex):
         get_info(i)
-
 
 
 def get_info(poke_id):
@@ -115,3 +120,12 @@ def save_info(info):
         typ.save()
         pokemon.types.add(typ)
 
+
+############## Pokemon View ################
+
+def pokemon_view(request, slug):
+    print(slug)
+    context = {
+        'slug': slug,
+    }
+    return render(request, 'pokemon/pokemon_view.html', context)

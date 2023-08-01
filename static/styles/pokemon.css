@@ -3,7 +3,6 @@ main {
   display: flex;
   flex-direction: column;
 }
-
 .cards {
   display: flex;
   flex-wrap: wrap;
@@ -49,8 +48,12 @@ main {
   color: black;
 }
 
-.pag-icon{
-  width: 1em;
+#next-pag-icon, #prev-pag-icon{
+  width: 16px;
+}
+#last-pag-icon, #first-pag-icon{
+  width: 30px;
+  margin: 0 30px;
 }
 
 #current_page{
