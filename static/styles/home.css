@@ -9,7 +9,14 @@ main {
   flex-wrap: wrap;
   justify-content: center;
 }
+.card:hover{
+  transform: scale(1.1);
+  transition: all ease-in-out 200ms;
+}
+.card{
 
+  transition: all ease-in-out 200ms;
+}
 .pagination {
   width: 100%;
   display: flex;
@@ -21,24 +28,20 @@ main {
   justify-content: center;
   align-items: center;
   list-style: none;
-  /* gap: 10px; */
   padding: 0;
   border-radius: 10px;
 }
 .paginator li{
   background-color: white;
   padding: 0 0.5em;
-  /* border-left: 1px solid black; */
 }
 .paginator li:first-child{
   background-color: #232323;
   border-radius: 10px 0 0 10px;
-  /* color: #fff; */
 }
 .paginator li:last-child{
   border-radius: 0 10px 10px 0;
   background-color: #232323;
-  /* color: #fff; */
 }
 .paginator a {
   text-decoration: none;
@@ -48,7 +51,6 @@ main {
 
 .pag-icon{
   width: 1em;
-  /* padding: 0; */
 }
 
 #current_page{
@@ -61,3 +63,33 @@ main {
 #next-link, #prev-link{
   padding: .3em;
 }
+
+/*============================= MODAL =========================*/
+.card-modal {
+  border: 2px solid;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+.left,
+.right {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.left{
+    flex-direction: column-reverse;
+    align-items: center;
+}
+.poke-img {
+  position: relative;
+  height: 50%;
+}
+.pokemon-img {
+  position: absolute;
+}
+.right ul{
+    list-style: none;
+}
+/*============================= MODAL =========================*/
