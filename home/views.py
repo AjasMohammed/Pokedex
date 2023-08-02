@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Pokemon, Ability, Type
 from django.core.paginator import Paginator
-from django.urls import reverse
+# from django.db.models import get_or_create
 
 import pokebase as pb  # pip install pokebases
 
@@ -53,8 +53,9 @@ def pokemon(request):
 def call_get_info(id):
     startIndex = id + 1
     endIndex = startIndex + 20
-    for i in range(startIndex, endIndex):
+    for i in range(startIndex, 101):
         get_info(i)
+        print('created:', i)
 
 
 def get_info(poke_id):
@@ -78,7 +79,7 @@ def get_info(poke_id):
     species = pb.pokemon_species(pokemon.species.name)
     for entry in species.flavor_text_entries:
         text = entry.flavor_text
-        if entry.language.name == 'en' and text not in flavor:
+        if entry.language.name == 'en' and text not in description:
             if len(flavor) <= 1:
                 flavor = text
             elif len(text) < len(flavor):
@@ -109,23 +110,34 @@ def save_info(info):
 
     pokemon.save()
     abilities = info['abilities']
-    for i in range(len(abilities)):
-        ability = Ability(name=abilities[i])
-        ability.save()
+    for ability in abilities:
+        ability, _ = Ability.objects.get_or_create(name=ability)
+        # ability.save()
         pokemon.abilities.add(ability)
     
     types = info['types']
-    for type in types:
-        typ = Type(name=type)
-        typ.save()
+    for typ in types:
+        typ, _ = Type.objects.get_or_create(name=typ)
+        # typ.save()
         pokemon.types.add(typ)
 
 
 ############## Pokemon View ################
 
 def pokemon_view(request, slug):
-    print(slug)
+    
+    pokemon = Pokemon.objects.get(slug=slug)
+    id = pokemon.id
+    poke_type = pokemon.types.all()
+    related_pokemons = {}
+    for typ in poke_type:
+        related_pokemons[typ] = Pokemon.objects.filter(types=typ).exclude(id=id)
+    # for i in related_pokemons:
+    #     print(i.name)
+    # print(related_pokemons)
+
     context = {
-        'slug': slug,
+        'pokemon': pokemon,
+        'related_pokemons': related_pokemons
     }
     return render(request, 'pokemon/pokemon_view.html', context)
