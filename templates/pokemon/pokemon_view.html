@@ -1,88 +1,106 @@
-{% extends "base.html" %} {% load static %} {% load custom_filters %} 
-{% block link %}
+{% extends "base.html" %} {% load static %} {% load custom_filters %} {% block link %}
+<link rel="stylesheet" href="{% static 'styles/card.css' %}" />
 <link rel="stylesheet" href="{% static 'styles/pokemon_view.css' %}" />
 
-{% endblock link %}
-{% block title %}
-  Pokemon | {{pokemon.name}}
-{% endblock title %}
-
+{% endblock link %} {% block title %} Pokemon | {{pokemon.name}} {% endblock title %} 
 {% block body %}
 
 <main>
   <section class="stats-section">
     <div class="left-section">
-    <div class="top-view">
-      <div class="title">
-        <h1 id="name">{{pokemon.name|upper}}</h1>
-        <h4 id="id">ID: {{pokemon.id}}</h4>
-        <h4 id="hp">{{pokemon.stats.hp}} Hp</h4>
+      <div class="top-view">
+        <div class="title">
+          <h1 class="name">{{pokemon.name|upper}}</h1>
+          <h4 class="id">ID: {{pokemon.id}}</h4>
+          <h4 class="hp">{{pokemon.stats.hp}} Hp</h4>
+        </div>
+        <div class="img-view">
+          <img src="{{pokemon.pokemon_img}}" alt="pokemon_img" />
+        </div>
       </div>
-      <div class="img-view">
-        <img src="{{pokemon.pokemon_img}}" alt="pokemon_img" />
+      <div class="info">
+        <div class="type">
+          <ul class="type-list">
+            {% for type in pokemon.types.all %}
+            <li>
+              <span
+                ><img
+                  src="{% static 'images/type_icons/'|img_path:type.name %}"
+                  alt="{{type.name}}"
+                  class="type-img"
+              /></span>
+              {{type.name|title}}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="info">
-      <div class="type">
-        <ul id="type-list">
-          {% for type in pokemon.types.all %}
-          <li>
-            <span
-              ><img
-                src="{% static 'images/type_icons/'|img_path:type.name %}"
-                alt="{{type.name}}"
-                id="type-img"
-            /></span>
-            {{type.name|title}}
-          </li>
+    <div class="right-section">
+      <div class="abilities">
+        <h2>Abilities:</h2>
+        <ul>
+          {% for ability in pokemon.abilities.all %}
+          <li>{{ability.name}}</li>
           {% endfor %}
         </ul>
       </div>
-    </div>
-    </div>
-    <div class="right-section">
-        <div class="abilities">
-            <h2>Abilities: </h2>
-            <ul>
-                {% for ability in pokemon.abilities.all %}
-                  <li>{{ability.name}}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        
+
       <div class="stats">
-          <h2>STATS: </h2>
-          <ul>
-        <li>
-          <span>Height</span> <span>:</span><span>{{pokemon.height}}</span>
-        </li>
-        <li>
-          <span>Weight</span> <span>:</span><span>{{pokemon.weight}}</span>
-        </li>
-        <li>
-          <span>Attack</span> <span>:</span
-          ><span>{{pokemon.stats.attack}}</span>
-        </li>
-        <li>
-          <span>Defense</span> <span>:</span
-          ><span>{{pokemon.stats.defense}}</span>
-        </li>
-        <li>
-          <span>SpecialAttack</span> <span>:</span
-          ><span>{{pokemon.stats|get_val:'special-attack'}}</span>
-        </li>
-        <li>
-          <span>SpecialDefense</span> <span>:</span
-          ><span>{{pokemon.stats|get_val:'special-defense'}}</span>
-        </li></ul>
+        <h2>STATS:</h2>
+        <ul>
+          <li>
+            <span>Height</span> <span>:</span><span>{{pokemon.height}}</span>
+          </li>
+          <li>
+            <span>Weight</span> <span>:</span><span>{{pokemon.weight}}</span>
+          </li>
+          <li>
+            <span>Attack</span> <span>:</span
+            ><span>{{pokemon.stats.attack}}</span>
+          </li>
+          <li>
+            <span>Defense</span> <span>:</span
+            ><span>{{pokemon.stats.defense}}</span>
+          </li>
+          <li>
+            <span>SpecialAttack</span> <span>:</span
+            ><span>{{pokemon.stats|get_val:'special-attack'}}</span>
+          </li>
+          <li>
+            <span>SpecialDefense</span> <span>:</span
+            ><span>{{pokemon.stats|get_val:'special-defense'}}</span>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <article class="description">
+  <article class="description" id="read-more">
     <h2>Description :</h2>
-    <p>{{pokemon.description}}</p>
+    <div class="content">
+      <p>{{pokemon.description}}</p>
+      <a href="#read-more" id="more-btn">More...</a>
+    </div>
   </article>
 
+  <aside>
+    <h2 style="margin-left: 1em">Releated Pokeamons:</h2>
+    <div class="related">
+      {% for poke in related_pokemons %} {% include "card.html" %} {% endfor %}
+    </div>
+  </aside>
 </main>
-{% endblock body %}
+{% endblock body %} {% block script %}
+
+<script>
+  const more_btn = document.querySelector("#more-btn");
+  const content = document.querySelector(".description p");
+
+  more_btn.addEventListener("click", () => {
+    more_btn.style.display = "none";
+    content.style.height = 'auto'
+  });
+</script>
+
+{% endblock script %}

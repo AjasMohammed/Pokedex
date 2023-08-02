@@ -13,10 +13,10 @@ main{
 .left-section{
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
 }
 .right-section{
-    width: 50%;
+    width: 100%;
     display: flex;
     margin: 2em;
     justify-content: space-between;
@@ -30,10 +30,10 @@ main{
     padding-left: 5em;
     position: relative;
 }
-#name, #id, #hp{
+.name, .id, .hp{
     margin: 0;
 }
-#hp{
+.hp{
     position: absolute;
     top: .5em;
     right: 5em;
@@ -62,16 +62,16 @@ main{
 .type{
     width: 100%;
 }
-#type-list{
+.type-list{
     display: flex;
     justify-content: space-around;
     padding: 0;
 }
-#type-img {
+.type-img {
   width: 1.5em;
 }
 .stats{
-    width: 50%;
+    width: 100%;
 }
 .stats ul{
     padding: 0;
@@ -84,7 +84,9 @@ main{
 .stats li span{
     width: calc(100%/3);
 }
-
+.abilities{
+    width: 100%;
+}
 .abilities ul{
     list-style: none;
 }
@@ -102,4 +104,59 @@ main{
 }
 .description p{
     margin: 3em;
+}
+
+.description::after{
+    content: "";
+    display: block;
+    position: relative;
+    background-color: aliceblue;
+    left: 10%;
+    height: 1px;
+    width: 80%;
+}
+.content{
+    display: inline;
+}
+#more-btn{
+    display: none;
+}
+.related{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    gap: .5em;
+    justify-content: center;
+}
+
+.card{
+    margin: 1rem 0;
+      transition: all ease-in-out 200ms;
+
+}
+.card:hover{
+  transform: scale(1.1);
+  transition: all ease-in-out 200ms;
+}
+
+
+@media(max-width: 600px){
+    .stats-section{
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .right-section{
+        flex-direction: column;
+        align-items: center;
+        margin: 1em;
+    }
+    .description p{
+        margin: 0;
+        font-size: 13px;
+        height: 300px;
+        overflow: hidden;
+    }
+    #more-btn{
+        display: inline;
+    }
 }

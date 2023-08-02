@@ -67,12 +67,16 @@
   height: auto;
   position: absolute;
 }
-
-#type-img {
-  width: 2em;
+.types-img{
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
   position: absolute;
   top: 0.5em;
   right: 0.5em;
+}
+#type-img {
+  width: 1.5em;
 }
 
 #name,

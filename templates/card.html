@@ -1,0 +1,68 @@
+{% load static %} {% load custom_filters %} 
+
+    <a href="{% url 'pokemon_view' slug=poke.slug %}" class="card-link">
+    
+    <!--======================= POKEMON CARDS =======================-->
+
+    <a href="{% url 'pokemon_view' slug=poke.slug %}" class="card-link">
+      <div class="card">
+        <div class="inner-frame">
+          <div class="card-title">
+            <label id="name"
+              ><span id="pokemon-name">{{poke.name}}</span>
+              <span id="pokemon-id">{{poke.id}}</span></label
+            >
+            <label id="hp">{{poke.stats.hp}} HP</label>
+          </div>
+          <div class="card-img">
+            <div class="types-img">
+              {% for type in poke.types.all %}
+
+              <img
+                src="{% static 'images/type_icons/'|img_path:type%}"
+                alt="{{poke.types.all.first}}"
+                id="type-img"
+              />
+              {% endfor %}
+            </div>
+            <img
+              src="{{poke.pokemon_img}}"
+              alt="{{poke.name}}"
+              class="pokemon-img"
+            />
+          </div>
+          <div class="card-stats">
+            <div class="top-stats">
+              <label>Height: {{poke.height}} </label
+              ><label for=""> Weight: {{poke.weight}} lbs</label>
+            </div>
+            <div class="bottom-stats">
+              <div>
+                <label class="stat" for="">Speed:</label
+                ><label for="">{{poke.stats.speed}}</label>
+              </div>
+              <div>
+                <label class="stat" for="">Attack: </label
+                ><label>{{poke.stats.attack}}</label>
+              </div>
+              <div>
+                <label class="stat" for="">Defense:</label
+                ><label for=""> {{poke.stats.defense}} </label>
+              </div>
+              <div>
+                <label class="stat" for="">Special Attack:</label>
+                <label for="">{{poke.stats|get_val:"special-attack"}}</label>
+              </div>
+              <div>
+                <label class="stat" for="">Special Defense:</label>
+                <label for="">{{poke.stats|get_val:"special-defense"}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="flavour">
+            <p>{{poke.flavor}}</p>
+          </div>
+        </div>
+      </div>
+    </a>
+    <!--======================= POKEMON CARDS =======================-->

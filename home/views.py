@@ -129,12 +129,9 @@ def pokemon_view(request, slug):
     pokemon = Pokemon.objects.get(slug=slug)
     id = pokemon.id
     poke_type = pokemon.types.all()
-    related_pokemons = {}
-    for typ in poke_type:
-        related_pokemons[typ] = Pokemon.objects.filter(types=typ).exclude(id=id)
+    related_pokemons = Pokemon.objects.filter(types__in=poke_type).exclude(id=id).distinct()
     # for i in related_pokemons:
     #     print(i.name)
-    # print(related_pokemons)
 
     context = {
         'pokemon': pokemon,
