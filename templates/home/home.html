@@ -1,1 +1,22 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% load static %} {% block title %} Home {% endblock title %} 
+
+{% block link %}
+  <link rel="stylesheet" href="{% static 'styles/home.css' %}">
+{% endblock link %}
+
+{% block body %}
+<main>
+    <div class="link-title">
+  <a href="#" class="page-link">
+    <div class="link">
+      <h2>POKEMONS</h2>
+      <img src="{% static '/images/chevron-right.svg' %}" alt="" />
+    </div>
+  </a>
+  </div>
+
+  <div class="pokemons">
+    {% for poke in random_cards %} {% include "card.html" %} {% endfor %}
+  </div>
+</main>
+{% endblock body %}

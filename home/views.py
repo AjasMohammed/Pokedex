@@ -4,12 +4,24 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 
 import pokebase as pb  # pip install pokebases
+import random
 
 
 # Create your views here.
 def home(request):
-    return render(request, 'home/home.html')
+    pokemons = Pokemon.objects.all()
 
+    end_index = pokemons.count()
+    # print(end_index)
+    random_index = random.sample(range(1, end_index + 1), 8)
+
+    random_cards = pokemons.filter(id__in=random_index)
+
+    context = {
+        'random_cards': random_cards
+    }
+
+    return render(request, 'home/home.html', context)
 
 ################ Card View ####################
 
@@ -155,5 +167,6 @@ def search(request):
         'query': query,
         'item': 'pokemon'
     }
+    print(context)
     
     return render(request, 'home/search.html', context)

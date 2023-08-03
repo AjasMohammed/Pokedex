@@ -25,13 +25,14 @@
 {% endblock style %} {% block body %}
 
 <main>
-    {% if poke %}
+    {% if pokemons %}
     {% for poke in pokemons %} 
       {% include "card.html" %}
       {% endfor %}
-      {% endif %}
+      {% else %}
       <div class="not-found">
           <h2>Result for "{{query}}" Not Found</h2>
         </div>
+      {% endif %}
 </main>
 {% endblock body %}

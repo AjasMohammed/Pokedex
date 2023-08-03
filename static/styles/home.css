@@ -1,0 +1,47 @@
+.pokemons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1em;
+  gap: 1em;
+}
+.card {
+  margin: .5em 1em;
+}
+.card:hover {
+  transform: scale(1.1);
+
+  transition: all ease-in-out 200ms;
+}
+.link-title{
+    width: 200px;
+    margin-left: 3em;
+}
+
+.link h2{
+    margin: 0;
+}
+.page-link {
+  color: #fff;
+  margin-left: 1em;
+  width: fit-content;
+}
+.page-link::after{
+    content: "";
+    display: block;
+    height: 1px;
+    width: 0;
+    background-color: #fff;
+    transition: all ease-out 200ms;
+}
+.link {
+  display: flex;
+}
+.link img {
+  width: 25px;
+  margin: 4px 0 0 4px;
+}
+
+.link-title:hover .page-link::after{
+    width: 8em;
+}
