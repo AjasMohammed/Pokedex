@@ -17,6 +17,14 @@ class Ability(models.Model):
         return self.name
 
 
+class Evolution(models.Model):
+    chain = models.JSONField()
+
+    def __str__(self):
+        
+        return self.chain
+
+
 class Pokemon(models.Model):
 
     id = models.IntegerField(primary_key=True)
@@ -28,6 +36,8 @@ class Pokemon(models.Model):
     stats = models.JSONField()
     description = models.TextField(max_length=100000, null=True)
     flavor = models.TextField(max_length=1000, null=True)
+
+    evolution_chain = models.ManyToManyField(Evolution)
 
     pokemon_img = models.TextField(max_length=1000)
 

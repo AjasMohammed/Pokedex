@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from .models import Pokemon, Ability, Type
+from .models import Pokemon, Ability, Type, Evolution
 from django.core.paginator import Paginator
 from django.db.models import Q
 
 import pokebase as pb  # pip install pokebases
 import random
+import json
 
 
 # Create your views here.
@@ -69,6 +70,32 @@ def call_get_info(id):
         get_info(i)
         print('created:', i)
 
+def evolution(id):
+    pokemon = pb.pokemon(id)
+    evolutionChain = []
+    chain = pokemon.species.evolution_chain.chain
+    family = f"{chain.species.name}-family"
+
+    evolution_chain(chain, evolutionChain)
+
+    data = json.dumps({family: evolutionChain})
+
+    evolve, _ = Evolution.objects.get_or_create(chain=data)
+
+    pokemon = Pokemon.objects.get(id=id)
+    pokemon.evolution_chain.add(evolve)
+    print(family, 'added')
+
+    
+
+def evolution_chain(chain, evolutionChain):
+    name = chain.species.name
+    evolutionChain.append(name)  # Add the current Pokémon to the list of evolutions
+
+    # Recursively get the evolutions of the current Pokémon
+    for form in chain.evolves_to:
+        evolution_chain(form, evolutionChain)
+
 
 def get_info(poke_id):
     info = {}
@@ -81,7 +108,7 @@ def get_info(poke_id):
     info["types"] = [t.type.name for t in pokemon.types]
     info["abilities"] = [a.ability.name for a in pokemon.abilities]
     info["stats"] = {s.stat.name: s.base_stat for s in pokemon.stats}
-    info['gif'] = f"https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/{poke_id}.gif?raw=true"
+    info['image'] = f"https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/{poke_id}.gif?raw=true"
     # https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/other/showdown/25.gif?raw=true
 
     flavor = ""  # A single sentence to show in the card
@@ -117,7 +144,7 @@ def save_info(info):
                     stats = info['stats'],
                     flavor = info['flavor'],
                     description = info['description'],
-                    pokemon_img = info['gif']
+                    pokemon_img = info['image']
                 )
 
     pokemon.save()
@@ -142,14 +169,24 @@ def pokemon_view(request, slug):
     id = pokemon.id
     poke_type = pokemon.types.all()
     related_pokemons = Pokemon.objects.filter(types__in=poke_type).exclude(id=id).distinct()
-    # for i in related_pokemons:
-    #     print(i.name)
+    
+    evolutionChain = pokemon.evolution_chain.first()
+    data = json.loads(evolutionChain.chain)
+
+    family = next(iter(data))
+    chain = data[family]
+    # print(chain)
+
+    evolution = Pokemon.objects.filter(name__in=chain)
+
 
     context = {
         'pokemon': pokemon,
-        'related_pokemons': related_pokemons
+        'related_pokemons': related_pokemons,
+        'evolution': evolution
     }
     return render(request, 'pokemon/pokemon_view.html', context)
+
 
 def search(request):
 

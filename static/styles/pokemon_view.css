@@ -9,6 +9,7 @@ main{
 
 .stats-section{
     display: flex;
+    margin-bottom: 2em;
 }
 .left-section{
     display: flex;
@@ -95,11 +96,25 @@ main{
     margin: 10px
 }
 
+.evolution{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin: 2em 0;
+}
+.stages{
+    display: flex;
+    gap: 10em;
+    justify-content: center;
+    align-items: flex-end;
+    
+}
+
 .description{
     font-size: 15px;
     text-align: justify;
     margin: 0 10px;
-    margin-top: 2em;
     line-height: 1.7em;
 }
 .description p{

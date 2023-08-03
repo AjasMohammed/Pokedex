@@ -43,7 +43,7 @@
           <li>{{ability.name}}</li>
           {% endfor %}
         </ul>
-      </div>
+        </div>
 
       <div class="stats">
         <h2>STATS:</h2>
@@ -72,6 +72,20 @@
           </li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section class="evolution">
+    <h2 style="border-bottom: 1px solid;">
+      Evolution
+    </h2>
+    <div class="stages">
+    {% for stage in evolution %}
+      <div class="stage">
+        <h3>{{stage.name|upper}}</h3>
+        <img src="{{stage.pokemon_img}}" alt="">
+      </div>
+    {% endfor %}
     </div>
   </section>
 
