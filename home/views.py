@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Pokemon, Ability, Type
 from django.core.paginator import Paginator
-# from django.db.models import get_or_create
+from django.db.models import Q
 
 import pokebase as pb  # pip install pokebases
 
@@ -22,7 +22,7 @@ def pokemon(request):
     #         continue
     #     else:
     #         get_info(i)
-###############################################################################
+    ########################################################################
 
     pokemon = Pokemon.objects.prefetch_related('abilities', 'types')
     paginator = Paginator(pokemon, 20)
@@ -138,3 +138,22 @@ def pokemon_view(request, slug):
         'related_pokemons': related_pokemons
     }
     return render(request, 'pokemon/pokemon_view.html', context)
+
+def search(request):
+
+    query = request.GET.get('query')
+    pokemons = Pokemon.objects.all()
+
+    try:
+        id = int(query)
+        pokemon = pokemons.filter(id__exact=id)
+    except ValueError:
+        pokemon = pokemons.filter(Q(name__icontains=query)|Q(types__name__icontains=query)).distinct()  # field in pokemon model __ field in related model __ lookup
+    
+    context = {
+        "pokemons": pokemon,
+        'query': query,
+        'item': 'pokemon'
+    }
+    
+    return render(request, 'home/search.html', context)

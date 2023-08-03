@@ -5,14 +5,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'styles/base.css' %}" />
-    
-  <!-- GOOGLE FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'styles/card.css' %}" />
+
 
     {% block link %} {% endblock link %}
     <title>{% block title %} {% endblock title %}</title>
+    {% block style %}
+    {% endblock style %}
   </head>
   <body>
     <header class="clearfix">
@@ -41,15 +48,18 @@
           <li><a class="btn" href="#">ABOUT</a></li>
         </ul>
 
-        <form action="">
-          <input type="text" class="search-field" placeholder=" Search" />
+        <form action="{% url 'search' %}" method="get">
+          <input
+            type="text"
+            class="search-field"
+            placeholder=" Search"
+            name="query"
+          />
           <button class="search-btn btn" type="submit">Search</button>
         </form>
       </nav>
     </header>
-    {% block body %} {% endblock body %}
-
-{% block script %} {% endblock script %}
+    {% block body %} {% endblock body %} {% block script %} {% endblock script %}
 
     <script src="{% static 'script/base.js' %}"></script>
   </body>

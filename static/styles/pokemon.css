@@ -13,7 +13,7 @@ main {
   transition: all ease-in-out 200ms;
 }
 .card{
-
+  margin: 1em;
   transition: all ease-in-out 200ms;
 }
 .pagination {

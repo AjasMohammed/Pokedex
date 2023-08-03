@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% load static %} {% load custom_filters %}
+
+{% block title %} Search|{{item}}={{query}} {% endblock title %}
+
+{% block style %}
+<style>
+  main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em
+  }
+  .card{
+    margin: 1em 0;
+  }
+  .card:hover{
+  transform: scale(1.1);
+  transition: all ease-in-out 200ms;
+}
+.not-found{
+    color: #fff;
+    text-align: justify;
+}
+</style>
+{% endblock style %} {% block body %}
+
+<main>
+    {% if poke %}
+    {% for poke in pokemons %} 
+      {% include "card.html" %}
+      {% endfor %}
+      {% endif %}
+      <div class="not-found">
+          <h2>Result for "{{query}}" Not Found</h2>
+        </div>
+</main>
+{% endblock body %}
