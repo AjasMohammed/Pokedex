@@ -165,6 +165,10 @@ main{
         align-items: center;
         margin: 1em;
     }
+    .stages{
+        flex-wrap: wrap;
+        gap: 5em;
+    }
     .description p{
         margin: 0;
         font-size: 13px;

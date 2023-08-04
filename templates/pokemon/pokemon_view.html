@@ -74,20 +74,22 @@
       </div>
     </div>
   </section>
-
-  <section class="evolution">
-    <h2 style="border-bottom: 1px solid;">
-      Evolution
-    </h2>
-    <div class="stages">
+{% if evolution %}
+  
+<section class="evolution">
+  <h2 style="border-bottom: 1px solid;">
+    Evolution
+  </h2>
+  <div class="stages">
     {% for stage in evolution %}
-      <div class="stage">
-        <h3>{{stage.name|upper}}</h3>
-        <img src="{{stage.pokemon_img}}" alt="">
-      </div>
-    {% endfor %}
+    <div class="stage">
+      <h3>{{stage.name|upper}}</h3>
+      <img src="{{stage.pokemon_img}}" alt="">
     </div>
-  </section>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
 
   <article class="description" id="read-more">
     <h2>Description :</h2>

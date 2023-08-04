@@ -1,3 +1,54 @@
+main {
+  margin-top: 0;
+}
+
+/* ============== INTRO  =============== */
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100vh;
+  background-image: url("../images/bg/641968.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  color: white;
+  position: relative;
+
+  opacity: .8;
+}
+.intro *{
+      font-weight: 400;
+
+}
+.welcome-title {
+  position: absolute;
+  top: 4rem;
+  left: 1rem;
+}
+.welcome-title h1 {
+  align-self: flex-start;
+  font-size: 5rem;
+  margin-bottom: 0;
+}
+.welcome-title h3 {
+  align-self: flex-start;
+  font-size: 3rem;
+
+  margin-left: 10rem;
+  margin-top: 0;
+}
+.welcome-msg {
+  padding: 6rem;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+/* ============== INTRO =============== */
+
 .pokemons {
   display: flex;
   flex-wrap: wrap;
@@ -6,33 +57,33 @@
   gap: 1em;
 }
 .card {
-  margin: .5em 1em;
+  margin: 0.5em 1em;
 }
 .card:hover {
   transform: scale(1.1);
 
   transition: all ease-in-out 200ms;
 }
-.link-title{
-    width: 200px;
-    margin-left: 3em;
+.link-title {
+  width: 200px;
+  margin-left: 3em;
 }
 
-.link h2{
-    margin: 0;
+.link h2 {
+  margin: 0;
 }
 .page-link {
   color: #fff;
   margin-left: 1em;
   width: fit-content;
 }
-.page-link::after{
-    content: "";
-    display: block;
-    height: 1px;
-    width: 0;
-    background-color: #fff;
-    transition: all ease-out 200ms;
+.page-link::after {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 0;
+  background-color: #fff;
+  transition: all ease-out 200ms;
 }
 .link {
   display: flex;
@@ -42,6 +93,51 @@
   margin: 4px 0 0 4px;
 }
 
-.link-title:hover .page-link::after{
-    width: 8em;
+.link-title:hover .page-link::after {
+  width: 8em;
+}
+
+@media(max-width:880px){
+  .welcome-title{
+    top: 10em;
+  }
+  .welcome-title h1{
+    font-size: 3rem;
+  }
+  .welcome-title h3{
+    font-size: 2rem;
+  }
+  .welcome-msg{
+    font-size: 1.5rem;
+    padding: 1em;
+  }
+  .link-title{
+    margin-top: 1em;
+  }
+  .pokemons{
+    gap: 0;
+    margin-left: 0;
+    margin-right: 0;
+    justify-content: space-evenly;
+  }
+  .card{
+    margin: 0.5em 0;
+  }
+}
+
+@media(max-width: 660px){
+  .welcome-title{
+    top: 0;
+    position: unset;
+  }
+  .welcome-title h1{
+    font-size: 4rem;
+  }
+  .welcome-title h3{
+    font-size: 2.5rem;
+    margin-left: 3rem;
+  }
+  .welcome-msg{
+    padding: 1rem;
+  }
 }

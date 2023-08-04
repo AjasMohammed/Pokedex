@@ -1,6 +1,10 @@
 {% extends 'base.html' %} {% load static %} {% load custom_filters %} {% block link %}
 <link rel="stylesheet" href="{% static 'styles/pokemon.css' %}" />
-{% endblock link %} {% block title %} Pokemons {% endblock title %} {% block body %}
+{% endblock link %} {% block title %} Pokemons {% endblock title %} 
+{% block pokemonactive %}
+  active
+{% endblock pokemonactive %}
+{% block body %}
 <main>
   <section class="cards">
     <!--======================= POKEMON CARDS =======================-->

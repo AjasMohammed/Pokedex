@@ -4,10 +4,26 @@
   <link rel="stylesheet" href="{% static 'styles/home.css' %}">
 {% endblock link %}
 
+{% block homeactive %}
+        active
+{% endblock homeactive %}
+
 {% block body %}
 <main>
+
+<section class="intro">
+  <div class="welcome-title">
+  <h1>WELCOME</h1>
+  <h3>To POKEDEX</h3>
+  </div>
+        <div class="welcome-msg">
+          <p>Explore the fascinating world of Pokemon, where you can see a large collecton of Pokemon Cards.
+            Enjoy Learning more about Pokemons.</p>
+        </div>
+</section>
+
     <div class="link-title">
-  <a href="#" class="page-link">
+  <a href="/pokemon" class="page-link">
     <div class="link">
       <h2>POKEMONS</h2>
       <img src="{% static '/images/chevron-right.svg' %}" alt="" />
