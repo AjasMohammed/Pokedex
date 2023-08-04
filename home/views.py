@@ -13,8 +13,7 @@ def home(request):
     pokemons = Pokemon.objects.all()
 
     end_index = pokemons.count()
-    # print(end_index)
-    random_index = random.sample(range(1, end_index + 1), 8)
+    random_index = random.sample(range(1, end_index + 1), 12)
 
     random_cards = pokemons.filter(id__in=random_index)
 
@@ -63,15 +62,23 @@ def pokemon(request):
     return render(request, 'pokemon/pokemon.html', context)
 
 
-def call_get_info(id):
-    startIndex = id + 1
+def call_get_info(id=None):
+    if id:
+        startIndex = id + 1
+    else:
+        startIndex = 0
     endIndex = startIndex + 20
-    for i in range(startIndex, 101):
+    for i in range(145, 201):
         get_info(i)
         print('created:', i)
 
-def evolution(id):
-    pokemon = pb.pokemon(id)
+def evolution(id=None, pokemon=None):
+    if id:
+        pokemon = pb.pokemon(id)
+        poke = Pokemon.objects.get(id=id)
+    else:
+        name = pokemon.species.name
+        poke = Pokemon.objects.get(name=name)
     evolutionChain = []
     chain = pokemon.species.evolution_chain.chain
     family = f"{chain.species.name}-family"
@@ -82,8 +89,7 @@ def evolution(id):
 
     evolve, _ = Evolution.objects.get_or_create(chain=data)
 
-    pokemon = Pokemon.objects.get(id=id)
-    pokemon.evolution_chain.add(evolve)
+    poke.evolution_chain.add(evolve)
     print(family, 'added')
 
     
@@ -127,10 +133,10 @@ def get_info(poke_id):
 
     info["flavor"] = flavor
     info["description"] = description
-    # print(info)
-    # print()
-
+    
     save_info(info)
+    evolution(pokemon=pokemon)
+
     return info
 
 
@@ -171,13 +177,17 @@ def pokemon_view(request, slug):
     related_pokemons = Pokemon.objects.filter(types__in=poke_type).exclude(id=id).distinct()
     
     evolutionChain = pokemon.evolution_chain.first()
-    data = json.loads(evolutionChain.chain)
 
-    family = next(iter(data))
-    chain = data[family]
-    # print(chain)
+    if evolutionChain:
+        data = json.loads(evolutionChain.chain)
 
-    evolution = Pokemon.objects.filter(name__in=chain)
+        family = next(iter(data))
+        chain = data[family]
+        # print(chain)
+
+        evolution = Pokemon.objects.filter(name__in=chain)
+    else:
+        evolution = None
 
 
     context = {

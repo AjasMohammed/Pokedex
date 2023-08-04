@@ -4,10 +4,10 @@
 }
 * {
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
 }
-main{
+main {
   margin-top: 7rem;
 }
 body {
@@ -47,7 +47,7 @@ header {
   position: absolute;
   width: 3rem;
   aspect-ratio: 1;
-  top: 0.5rem;
+  top: 1rem;
   right: 1rem;
   z-index: 999999;
   display: none;
@@ -75,7 +75,7 @@ header {
   float: left;
 }
 .logo {
-  width: 7em;
+  width: 10em;
   height: auto;
   margin: 0;
 }
@@ -118,7 +118,11 @@ nav form {
 #primary-navigation[data-visible="true"] {
   transform: translateX(0%);
 }
-
+.active{
+  border-radius: 0;
+  border-bottom: 1px solid;
+  transition: all ease-in 250ms;
+}
 /* search form
 ==================== */
 .search-field {
@@ -136,15 +140,23 @@ nav form {
   height: 2.5em;
   color: #232323;
   background-color: #fff;
+  cursor: pointer;
 }
 
 /* ==========Mobile Devices============= */
 @media (max-width: 600px) {
+  main{
+    margin-left: 0;
+    margin-right: 0;
+  }
   .menu-btn {
     display: block;
   }
   header {
     justify-content: center;
+  }
+  .poke-logo{
+    margin: 1.5em;
   }
   nav {
     width: 70%;
@@ -153,7 +165,7 @@ nav form {
     flex-direction: column-reverse;
     position: fixed;
     inset: 0 0 0 30%;
-    background-color: #676767;
+    background-color: rgba(0, 0, 0, 0.9);
     justify-content: flex-end;
 
     transform: translateX(100%);
@@ -173,6 +185,9 @@ nav form {
     width: 100%;
     padding: 0 0 0 20%;
   }
+  .line{
+    background-color: #fff;
+  }
   body.nav-open .line:nth-child(1) {
     transform: translateY(9px) rotate(45deg);
   }
@@ -186,3 +201,60 @@ nav form {
 /* ==========Mobile Devices============= */
 
 /* ============== HEADER END =============== */
+
+
+/* ============== FOOTER =============== */
+
+footer {
+  display: flex;
+  background-color: #676767;
+  color: #fff;
+  margin-top: 5rem;
+  width: 100%;
+  padding: 1rem;
+}
+footer p {
+  margin: 0;
+}
+.about {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  margin: 0 5em;
+}
+.socials {
+  width: 50%;
+  margin: 0 5em;
+}
+.about h3 {
+  width: fit-content;
+  border-bottom: 1px solid;
+}
+.socials {
+  align-items: center;
+}
+.socials h4 {
+  align-self: self-start;
+}
+.socials ul {
+  list-style: none;
+  display: flex;
+  gap: 2em;
+}
+.socials img{
+  width: 1.5em;
+}
+@media (max-width: 800px){
+  footer{
+    flex-direction: column;
+    align-items: center;
+  }
+  .about, .socials{
+    /* margin: 0 2em; */
+    width: 100%;
+  }
+  .socials ul{
+    justify-content: center;
+  }
+}
+/* ============== FOOTER =============== */

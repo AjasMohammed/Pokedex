@@ -36,16 +36,16 @@
       </div>
       <div class="poke-logo">
         <img
-          src="{% static 'images/pokemon-logo-png-1428.png' %}"
+          src="{% static 'images/logo/pokedexLogo.png' %}"
           alt="PoKemon logo"
           class="logo"
         />
       </div>
       <nav id="primary-navigation" data-visible="false">
         <ul>
-          <li><a class="btn" href="/">HOME</a></li>
-          <li><a class="btn" href="/pokemon">POKEMON</a></li>
-          <li><a class="btn" href="#">ABOUT</a></li>
+          <li><a class="btn {% block homeactive %}{% endblock homeactive %}" href="/">HOME</a></li>
+          <li><a class="btn {% block pokemonactive %}{% endblock pokemonactive %}" href="/pokemon">POKEMON</a></li>
+          <li><a class="btn {% block aboutactive %}{% endblock aboutactive %}" href="#">ABOUT</a></li>
         </ul>
 
         <form action="{% url 'search' %}" method="get">
@@ -59,8 +59,41 @@
         </form>
       </nav>
     </header>
-    {% block body %} {% endblock body %} {% block script %} {% endblock script %}
+    {% block body %} 
+    
+    {% endblock body %}
+    
+    
+    <footer>
+      <div class="about">
+        <h3>ABOUT</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia impedit architecto eum in voluptas eaque eveniet, ea tenetur neque sint error iusto doloremque tempora non officia ipsa nisi, ullam est.
 
+           icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+        </p>
+      </div>
+      <div class="socials">
+        <h4>Follow Me On :</h4>
+        <ul>
+          <li>
+            <a href="https://github.com/AjasMohammed/Pokedex.git" class="github" target="_blank">
+          <img src="{% static 'images/socials/github.svg' %}" alt="GitHub"></a>
+        </li>
+          <li>
+            <a href="https://linkedin.com/in/ajas-mohammed-2b461a239" class="linkedin" target="_blank">
+          <img src="{% static 'images/socials/linkedin-in.svg' %}" alt="LinkedIn"></a>
+        </li>
+          <li>
+            <a href="https://pokeapi.co/" class="pokeapi" target="_blank">
+          <img src="{% static 'images/socials/link-solid.svg' %}" alt=""></a>
+        </li>
+        </ul>
+        
+      </div>
+
+    </footer>
+
+    {% block script %} {% endblock script %}
     <script src="{% static 'script/base.js' %}"></script>
   </body>
 </html>

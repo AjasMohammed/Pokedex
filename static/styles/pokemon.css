@@ -67,32 +67,18 @@ main {
   padding: .3em;
 }
 
-/*============================= MODAL =========================*/
-.card-modal {
-  border: 2px solid;
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
+
+@media(max-width: 600px){
+  main{
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .cards{
+    gap: 1em;
+  }
+  .card{
+    margin: 0;
+  }
+  
 }
-.left,
-.right {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-}
-.left{
-    flex-direction: column-reverse;
-    align-items: center;
-}
-.poke-img {
-  position: relative;
-  height: 50%;
-}
-.pokemon-img {
-  position: absolute;
-}
-.right ul{
-    list-style: none;
-}
-/*============================= MODAL =========================*/

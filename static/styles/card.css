@@ -124,3 +124,37 @@
   border-top: 1px solid;
   text-align: justify;
 }
+
+
+@media (max-width: 850px){
+  .card{
+    margin: 0.5em 0;
+    width: 13rem;
+    height: 19.875rem;
+  }
+  .card-title{
+    height: 15%;
+    font-size: .9em
+  }
+  #hp{
+    font-size: 12px;
+  }
+  #pokemon-id{
+    font-size: 7px;
+    margin: 0;
+  }
+  .card-stats{
+    gap: 0;
+    font-size: 10px;
+    height: 30%;
+  }
+  .bottom-stats{
+    margin-top: 1em;
+  }
+  .bottom-stats div{
+    margin: 0;
+  }
+  .flavour p{
+    font-size: 9px;
+  }
+}
