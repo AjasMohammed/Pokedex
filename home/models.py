@@ -1,6 +1,7 @@
 from os import name
 from django.db import models
 from autoslug import AutoSlugField
+import json
 
 # Create your models here.
 
@@ -20,9 +21,15 @@ class Ability(models.Model):
 class Evolution(models.Model):
     chain = models.JSONField()
 
+    class Meta:
+        ordering = ['pk']
+
     def __str__(self):
+
+        data = json.loads(self.chain)
+        name = next(iter(data))
         
-        return self.chain
+        return name
 
 
 class Pokemon(models.Model):

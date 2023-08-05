@@ -13,7 +13,7 @@ def home(request):
     pokemons = Pokemon.objects.all()
 
     end_index = pokemons.count()
-    random_index = random.sample(range(1, end_index + 1), 12)
+    random_index = random.sample(range(1, end_index + 1), 12)  # returns a list of 12 random numbers within the range of 1 and index of last item.
 
     random_cards = pokemons.filter(id__in=random_index)
 
@@ -23,61 +23,62 @@ def home(request):
 
     return render(request, 'home/home.html', context)
 
+
 ################ Card View ####################
-
 def pokemon(request):
-    #################### Use Only to fil the Database ######################
-    # for i in range(startIndex, endIndex):
-    #     item = Pokemon.objects.filter(id=i).exists()
-    #     if item:
-    #         # info = Pokemon.objects.get(id=i)
-    #         continue
-    #     else:
-    #         get_info(i)
-    ########################################################################
 
-    pokemon = Pokemon.objects.prefetch_related('abilities', 'types')
-    paginator = Paginator(pokemon, 20)
-    pageNo = request.GET.get('page')
-    pageObj = paginator.get_page(pageNo)
-    
+########################################
     # Checks if the last pokemon in the page is the last pokemon in the database
-    last = Pokemon.objects.order_by('id').last()
-    last_poke_id = pageObj[-1].id
-    # print(last.slug)
 
-########################################
+    # pokemon = Pokemon.objects.prefetch_related('abilities', 'types')
+    # paginator = Paginator(pokemon, 20)
+    # pageNo = request.GET.get('page')
+    # pageObj = paginator.get_page(pageNo)
+    
+    # last = Pokemon.objects.order_by('id').last()
+    # last_poke_id = pageObj[-1].id
+
+#  uploads data to database if the last item in the page is the last item in database(Time consuming)
     # if last_poke_id == last.id:
-    #     call_get_info(last_poke_id)
+    #     addData(last_poke_id)
 ########################################
 
-    pokemon = Pokemon.objects.prefetch_related('abilities', 'types')
-    paginator = Paginator(pokemon, 20)
+    pokemon_data = Pokemon.objects.prefetch_related('abilities', 'types')
+    paginator = Paginator(pokemon_data, 20)
     pageNo = request.GET.get('page')
     pageObj = paginator.get_page(pageNo)
 
     pokemon = pageObj.object_list
+    context = {
+        'pokemon': pokemon,
+        'page': pageObj,
+    }
 
-    context = {'pokemon': pokemon, 'page': pageObj, 'last': last_poke_id}
     return render(request, 'pokemon/pokemon.html', context)
+################################################################################
 
 
-def call_get_info(id=None):
+#################### Use Only to fil the Database ######################
+def addData(id=None, end=None):
     if id:
         startIndex = id + 1
     else:
         startIndex = 0
-    endIndex = startIndex + 20
-    for i in range(145, 201):
+    if end:
+        endIndex = end
+    else:
+        endIndex = startIndex + 20
+    for i in range(startIndex, endIndex):
         get_info(i)
         print('created:', i)
+
 
 def evolution(id=None, pokemon=None):
     if id:
         pokemon = pb.pokemon(id)
         poke = Pokemon.objects.get(id=id)
     else:
-        name = pokemon.species.name
+        name = pokemon.name
         poke = Pokemon.objects.get(name=name)
     evolutionChain = []
     chain = pokemon.species.evolution_chain.chain
@@ -92,7 +93,6 @@ def evolution(id=None, pokemon=None):
     poke.evolution_chain.add(evolve)
     print(family, 'added')
 
-    
 
 def evolution_chain(chain, evolutionChain):
     name = chain.species.name
@@ -135,8 +135,10 @@ def get_info(poke_id):
     info["description"] = description
     
     save_info(info)
-    evolution(pokemon=pokemon)
-
+    try:
+        evolution(pokemon=pokemon)
+    except:
+        print('Error adding:- ', info['name'])
     return info
 
 
@@ -165,6 +167,7 @@ def save_info(info):
         typ, _ = Type.objects.get_or_create(name=typ)
         # typ.save()
         pokemon.types.add(typ)
+########################################################################
 
 
 ############## Pokemon View ################
@@ -183,19 +186,25 @@ def pokemon_view(request, slug):
 
         family = next(iter(data))
         chain = data[family]
-        # print(chain)
 
         evolution = Pokemon.objects.filter(name__in=chain)
+
+        # oreders the pokemon according to the evolution stages
+        stages = []
+        for stage in chain:
+            for poke in evolution:
+                if stage == poke.name:
+                    stages.append(poke)
     else:
-        evolution = None
-
-
+        stages = None
+    print(stages)
     context = {
         'pokemon': pokemon,
         'related_pokemons': related_pokemons,
-        'evolution': evolution
+        'evolution': stages
     }
     return render(request, 'pokemon/pokemon_view.html', context)
+############## Pokemon View ################
 
 
 def search(request):
@@ -214,7 +223,6 @@ def search(request):
         'query': query,
         'item': 'pokemon'
     }
-    print(context)
     
     return render(request, 'home/search.html', context)
 

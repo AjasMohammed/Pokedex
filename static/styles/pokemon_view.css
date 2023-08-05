@@ -9,7 +9,6 @@ main{
 
 .stats-section{
     display: flex;
-    margin-bottom: 2em;
 }
 .left-section{
     display: flex;
@@ -101,11 +100,12 @@ main{
     flex-direction: column;
     width: 100%;
     align-items: center;
-    margin: 2em 0;
+    margin: 0 0 2em 0;
 }
 .stages{
     display: flex;
-    gap: 10em;
+    flex-wrap: wrap;
+    gap: 5em;
     justify-content: center;
     align-items: flex-end;
     

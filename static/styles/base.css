@@ -118,7 +118,7 @@ nav form {
 #primary-navigation[data-visible="true"] {
   transform: translateX(0%);
 }
-.active{
+.active {
   border-radius: 0;
   border-bottom: 1px solid;
   transition: all ease-in 250ms;
@@ -145,7 +145,7 @@ nav form {
 
 /* ==========Mobile Devices============= */
 @media (max-width: 600px) {
-  main{
+  main {
     margin-left: 0;
     margin-right: 0;
   }
@@ -155,7 +155,7 @@ nav form {
   header {
     justify-content: center;
   }
-  .poke-logo{
+  .poke-logo {
     margin: 1.5em;
   }
   nav {
@@ -185,7 +185,7 @@ nav form {
     width: 100%;
     padding: 0 0 0 20%;
   }
-  .line{
+  .line {
     background-color: #fff;
   }
   body.nav-open .line:nth-child(1) {
@@ -202,7 +202,6 @@ nav form {
 
 /* ============== HEADER END =============== */
 
-
 /* ============== FOOTER =============== */
 
 footer {
@@ -212,6 +211,7 @@ footer {
   margin-top: 5rem;
   width: 100%;
   padding: 1rem;
+  padding-bottom: 3rem;
 }
 footer p {
   margin: 0;
@@ -230,6 +230,9 @@ footer p {
   width: fit-content;
   border-bottom: 1px solid;
 }
+.about h3 a {
+  color: #fff;
+}
 .socials {
   align-items: center;
 }
@@ -241,19 +244,20 @@ footer p {
   display: flex;
   gap: 2em;
 }
-.socials img{
+.socials img {
   width: 1.5em;
 }
-@media (max-width: 800px){
-  footer{
+@media (max-width: 800px) {
+  footer {
     flex-direction: column;
     align-items: center;
   }
-  .about, .socials{
+  .about,
+  .socials {
     /* margin: 0 2em; */
     width: 100%;
   }
-  .socials ul{
+  .socials ul {
     justify-content: center;
   }
 }
