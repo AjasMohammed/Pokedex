@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}
+  about
+{% endblock title %}
+{% block style %}
+<style>
+  .container{
+    color: #fff;
+    margin: 0 3em;
+    text-align: justify;
+  }
+  .container p{
+    margin-left: 2em;
+  }
+  h1{
+    font-size: 2em;
+  }
+  .container a{
+    text-decoration: underline;
+    color: #fff;
+  }
+  </style>
+{% endblock style %}
+{% block aboutactive %}
+        active
+{% endblock aboutactive %}
+{% block body %}
+<main>
+    <section class="container">
+        <article>
+  <h1>About Our Pokemon WebApp</h1>
+
+<p>Welcome to our Pokemon WebApp, where you can dive into the fascinating world of Pokemon and explore detailed information about these captivating creatures!</p>
+
+<h2>Inspiration and Purpose</h2>
+<p>Our love for Pokemon and the desire to create an engaging platform for fellow Pokemon enthusiasts inspired us to build this web application. We aimed to provide a user-friendly interface that showcases essential Pokemon details using the <a href="https://pokeapi.co/" class="pokeapi" target="_blank">
+PokeAPI</a> and its Python wrapper, Pokebase. Our goal is to make the vast world of Pokemon accessible to fans, allowing them to explore various Pokemon and their characteristics effortlessly.</p>
+
+
+<h2>Technology Stack</h2>
+<p>
+Our web application is built using a powerful combination of technologies. The backend is powered by Django, enabling seamless data management and user authentication. For the frontend, we crafted a dynamic interface using HTML, CSS, and JavaScript, ensuring a smooth and immersive experience for users.
+</p>
+<h2>Features</h2>
+<ul>
+<li> Homepage: A warm welcome awaits you with a captivating background image and a heartfelt greeting. Randomly selected Pokemon cards are displayed below the welcome message, adding an element of surprise and delight.</li>
+
+<li> All Cards Page: Browse through an extensive collection of Pokemon cards with the ability to view 20 cards per page. The pagination feature ensures a hassle-free browsing experience.</li>
+
+<li> Detailed Pokemon Pages: Click on any card to reveal an in-depth view of the Pokemon's characteristics, evolution chain, and other related Pokemon. Dive into a wealth of information about your favorite Pokemon and explore its entire evolutionary journey.</li>
+
+<li> Search Functionality: Our navbar features a user-friendly search bar that allows you to find specific Pokemon by their name, ID, or type. Easily navigate through the vast database to find the Pokemon you seek.</li>
+
+<li> Captivating Gifs: Each card features animated gifs of the Pokemon, adding a touch of liveliness and charm to your Pokemon exploration.</li>
+
+<li> Iconography: We've incorporated icons from reputable sources like <a target="_blank" href="https://icons8.com">Icons8</a> and Font Awesome to enhance the visual appeal and provide an intuitive user experience.</li>
+</ul>
+<h2>Our Commitment</h2>
+<p>
+We are continually working to improve and expand our Pokemon WebApp. Our passion for Pokemon and dedication to providing an exceptional user experience drive us to implement regular updates and exciting new features.
+
+We hope our web application brings joy to Pokemon enthusiasts of all ages. Join us on this exciting journey as we explore the wonderful world of Pokemon together!</p>
+</article>
+</section>
+</main>
+{% endblock body %}

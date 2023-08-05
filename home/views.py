@@ -217,3 +217,8 @@ def search(request):
     print(context)
     
     return render(request, 'home/search.html', context)
+
+
+def about(request):
+
+    return render(request, 'home/about.html')
