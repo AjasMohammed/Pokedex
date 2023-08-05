@@ -33,3 +33,4 @@ Hey, if you have any cool ideas or you found a bug in the website, let me know! 
 ```console
 mysql -u username -p database_name < path_to_sql/pokemon_data.sql
 ```
+Use the above command in the terminal to add data to your Database(PostgreSql/MySql)
