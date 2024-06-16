@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'pokedex.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DB_NAME'),
         'HOST': config('DB_HOST'),
         'PORT': config('DB_PORT'),

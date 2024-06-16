@@ -58,12 +58,12 @@ def pokemon(request):
 ################################################################################
 
 
-#################### Use Only to fil the Database ######################
+#################### Use Only to fill the Database ######################
 def addData(id=None, end=None):
     if id:
-        startIndex = id + 1
+        startIndex = id
     else:
-        startIndex = 0
+        startIndex = 1
     if end:
         endIndex = end
     else:

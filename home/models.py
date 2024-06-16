@@ -8,11 +8,17 @@ import json
 class Type(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
+    class Meta:
+        db_table = 'types'
+
     def __str__(self):
         return self.name
 
 class Ability(models.Model):
     name = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        db_table = 'abilities'
 
     def __str__(self):
         return self.name
@@ -23,6 +29,7 @@ class Evolution(models.Model):
 
     class Meta:
         ordering = ['pk']
+        db_table = 'evolution'
 
     def __str__(self):
 
@@ -56,6 +63,7 @@ class Pokemon(models.Model):
 
     class Meta:
         ordering = ['id']
+        db_table = 'pokemon'
 
     def __str__(self):
         return self.name
