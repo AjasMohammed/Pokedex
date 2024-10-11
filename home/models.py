@@ -45,13 +45,16 @@ class Pokemon(models.Model):
     name = models.CharField(max_length=100)
     height = models.DecimalField(max_digits=10, decimal_places=2)
     weight = models.DecimalField(max_digits=10, decimal_places=2)
-    types = models.ManyToManyField(Type)
-    abilities = models.ManyToManyField(Ability)
+    types = models.ManyToManyField(Type, related_name='pokemon_types')
+    abilities = models.ManyToManyField(Ability, related_name='pokemon_abilities')
     stats = models.JSONField()
     description = models.TextField(max_length=100000, null=True)
+    habitat = models.CharField(max_length=100, null=True)
+    is_legendary = models.BooleanField(default=False)
+    is_mythical = models.BooleanField(default=False)
     flavor = models.TextField(max_length=1000, null=True)
 
-    evolution_chain = models.ManyToManyField(Evolution)
+    evolution_chain = models.ManyToManyField(Evolution, related_name='pokemon_evolution_chain')
 
     pokemon_img = models.TextField(max_length=1000)
 
@@ -59,7 +62,7 @@ class Pokemon(models.Model):
     def generate_slug(self):
         return f'{self.name}-{self.id}'
     
-    slug = AutoSlugField(populate_from=generate_slug)
+    slug = AutoSlugField(populate_from=generate_slug, db_index=True)
 
     class Meta:
         ordering = ['id']
