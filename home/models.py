@@ -71,3 +71,21 @@ class Pokemon(models.Model):
     def __str__(self):
         return self.name
 
+
+class Berry(models.Model):
+    name = models.CharField(max_length=225)
+    size = models.IntegerField()
+    smoothness = models.IntegerField()
+    soil_dryness = models.IntegerField()
+    image = models.CharField(max_length=1000)
+    growth_time = models.IntegerField()
+    max_harvest = models.IntegerField()
+
+    class Meta:
+        ordering = ['id']
+        db_table = 'berry'
+        verbose_name = 'Berry'
+        verbose_name_plural = 'Berries'
+
+    def __str__(self):
+        return f"{self.name}-berry"
