@@ -7,6 +7,7 @@ import json
 
 class Type(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    icon = models.CharField(max_length=1000, null=True, blank=True)
 
     class Meta:
         db_table = 'types'

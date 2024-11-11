@@ -17,7 +17,11 @@ class PaginationHandleMixin(object):
     
     def get_paginated_response(self, data):
         assert self.paginator is not None
-        return self.paginator.get_paginated_response(data)
+        response =  self.paginator.get_paginated_response(data)
+        return response
 
 class CustomPagination(PageNumberPagination):
-    page_size_query_param = 'page'
+    page_size = 25  # Default number of items per page
+    page_query_param = 'page'  # Use 'page' for the page number
+    page_size_query_param = 'page_size'
+

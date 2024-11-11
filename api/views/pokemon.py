@@ -7,40 +7,30 @@ from home.models import Pokemon
 from api.serializers.pokemon import PokemonDetailSerializer
 from api.pagination import CustomPagination, PaginationHandleMixin
 
-import random
-
 
 class PokemonList(APIView, PaginationHandleMixin):
     pagination_class = CustomPagination
     serializer_class = PokemonDetailSerializer
 
     def get(self, request):
-        limit = request.GET.get('limit')
-        if limit:
-            pokemon_count = Pokemon.objects.count()
-            random_ids = random.sample(range(1, pokemon_count), int(limit))
-            pokemons = Pokemon.objects.filter(id__in=random_ids).prefetch_related(
-                'types', 'abilities', 'evolution_chain')[:int(limit)]
-            serializer = self.serializer_class(pokemons, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+        current_page = request.GET.get('page', 1)
+        pokemons = Pokemon.objects.all().prefetch_related(
+            'types', 'abilities', 'evolution_chain')
+        serializer = self.serializer_class(pokemons, many=True)
+        page = self.paginate_queryset(pokemons)
+        if page is not None:
+            serializer = self.get_paginated_response(
+                self.serializer_class(page, many=True))
         else:
-            pokemons = Pokemon.objects.all().prefetch_related(
-                'types', 'abilities', 'evolution_chain')
             serializer = self.serializer_class(pokemons, many=True)
-            page = self.paginate_queryset(pokemons)
-            if page is not None:
-                serializer = self.get_paginated_response(
-                    self.serializer_class(page, many=True))
-            else:
-                serializer = self.serializer_class(pokemons, many=True)
-
-            context = {
-                "next_page": serializer.data.get('next', None),
-                "previous_page": serializer.data.get('previous', None),
-                "count": serializer.data.get('count', None),
-                "pokemons": serializer.data.get('results', None).data,
-            }
-            return Response(context, status=status.HTTP_200_OK)
+        context = {
+            "next_page": serializer.data.get('next', None),
+            "previous_page": serializer.data.get('previous', None),
+            "current_page": current_page,
+            "count": serializer.data.get('count', None),
+            "pokemons": serializer.data.get('results', None).data,
+        }
+        return Response(context, status=status.HTTP_200_OK)
 
 
 class PokemonDetail(APIView):
